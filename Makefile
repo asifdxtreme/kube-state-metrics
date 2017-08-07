@@ -11,6 +11,9 @@ PKGS = $(shell go list ./... | grep -v /vendor/)
 deps:
 	go get github.com/tools/godep
 
+static-check:
+	godep go fmt ./...
+
 build: clean deps
 	$(COMMONENVVAR) $(BUILDENVVAR) godep go build -o kube-state-metrics 
 
