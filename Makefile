@@ -8,11 +8,12 @@ REGISTRY = gcr.io/google_containers
 TAG = $(shell git describe --abbrev=0)
 PKGS = $(shell go list ./... | grep -v /vendor/)
 
+static-check:
+	go get github.com/tools/godep
+	godep go fmt ./...
+
 deps:
 	go get github.com/tools/godep
-
-static-check:
-	godep go fmt ./...
 
 build: clean deps
 	$(COMMONENVVAR) $(BUILDENVVAR) godep go build -o kube-state-metrics 
